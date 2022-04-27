@@ -44,10 +44,23 @@ class TableViewController: UIViewController {
     
     private func setupSearchBarController() {
         searchController.searchBar.delegate = self
-        navigationItem.searchController = searchController
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        navigationItem.rightBarButtonItem = addButton
         tableView.tableHeaderView = searchController.searchBar
     }
     
+    @objc private func addNewPerson() {
+        let alertController = UIAlertController(title: "Add new person", message: nil, preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Submit", style: .default) { [weak self] alert in
+            self?.viewModel.filteredNames.append(alertController.textFields![0].text! as String)
+            self?.viewModel.names.append(alertController.textFields![0].text! as String)
+            self?.tableView.reloadData()
+        }
+        alertController.addTextField()
+        alertController.addAction(saveAction)
+        present(alertController, animated: true)
+    }
+                                       
     private func setupAutoLayout() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

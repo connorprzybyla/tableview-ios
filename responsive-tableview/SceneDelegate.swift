@@ -15,7 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = TableViewController(viewModel: NamesViewModel(names: ["Connor", "Mary", "Mark", "Kenny"]))
+        let tableViewController = TableViewController(viewModel: NamesViewModel(names: ["Connor", "Mary", "Mark", "Kenny"]))
+        window?.rootViewController = UINavigationController(rootViewController: tableViewController)
         window?.makeKeyAndVisible()
     }
 

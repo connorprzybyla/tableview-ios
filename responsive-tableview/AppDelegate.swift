@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = TableViewController(viewModel: NamesViewModel(names: ["Connor", "Mary", "Mark", "Kenny"]))
+        let tableViewController = TableViewController(viewModel: NamesViewModel(names: ["Connor", "Mary", "Mark", "Kenny"]))
+        window?.rootViewController = UINavigationController(rootViewController: tableViewController)
         window?.makeKeyAndVisible()
         return true
     }
