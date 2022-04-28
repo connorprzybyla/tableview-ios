@@ -14,6 +14,7 @@ class TableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        reloadData()
         setupSearchBarController()
         setupAutoLayout()
     }
@@ -35,11 +36,27 @@ class TableViewController: UIViewController {
     private var viewModel: TableViewModel
     private let tableView = UITableView()
     private let searchController = UISearchController()
+    
+    var datasource: TableDataSource?
 
     private func setupTableView() {
-        tableView.dataSource = self
+        datasource = TableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, name) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath)
+            cell.textLabel?.text = name
+            cell.detailTextLabel?.text = "Cell \(name)"
+            
+            return cell
+        })
+        tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         view.addSubview(tableView)
+    }
+    private func reloadData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(viewModel.filteredNames, toSection: 0)
+  
+        datasource?.apply(snapshot)
     }
     
     private func setupSearchBarController() {
@@ -54,7 +71,7 @@ class TableViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Submit", style: .default) { [weak self] alert in
             self?.viewModel.filteredNames.append(alertController.textFields![0].text! as String)
             self?.viewModel.names.append(alertController.textFields![0].text! as String)
-            self?.tableView.reloadData()
+            self?.reloadData()
         }
         alertController.addTextField()
         alertController.addAction(saveAction)
@@ -72,42 +89,16 @@ class TableViewController: UIViewController {
     }
 }
 
-// MARK: UITableViewDataSource
-
-extension TableViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        cell.textLabel?.text = viewModel.filteredNames[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.filteredNames.count
-    }
-    
-}
-
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension TableViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            viewModel.names.remove(at: indexPath.row)
-            viewModel.filteredNames.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Row \(indexPath.row) tapped!")
     }
 }
 
-// MARK: UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 
 extension TableViewController: UISearchBarDelegate {
     
@@ -116,7 +107,7 @@ extension TableViewController: UISearchBarDelegate {
             return dataString.range(of: searchText, options: .caseInsensitive) != nil
         })
         
-        tableView.reloadData()
+        reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

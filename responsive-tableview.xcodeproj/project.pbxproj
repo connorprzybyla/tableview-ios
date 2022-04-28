@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A14BF782819C6100068EB46 /* TableDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A14BF772819C6100068EB46 /* TableDatasource.swift */; };
 		5AE95DB0281599C200E3C4E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95DAF281599C200E3C4E5 /* AppDelegate.swift */; };
 		5AE95DB2281599C200E3C4E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95DB1281599C200E3C4E5 /* SceneDelegate.swift */; };
 		5AE95DB4281599C200E3C4E5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95DB3281599C200E3C4E5 /* TableViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A14BF772819C6100068EB46 /* TableDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDatasource.swift; sourceTree = "<group>"; };
 		5AE95DAC281599C200E3C4E5 /* responsive-tableview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "responsive-tableview.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE95DAF281599C200E3C4E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AE95DB1281599C200E3C4E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				5AE95DBA281599C400E3C4E5 /* LaunchScreen.storyboard */,
 				5AE95DBD281599C400E3C4E5 /* Info.plist */,
 				5AE95E3B2818DBFD00E3C4E5 /* TableViewModel.swift */,
+				5A14BF772819C6100068EB46 /* TableDatasource.swift */,
 			);
 			path = "responsive-tableview";
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A14BF782819C6100068EB46 /* TableDatasource.swift in Sources */,
 				5AE95DB4281599C200E3C4E5 /* TableViewController.swift in Sources */,
 				5AE95DB0281599C200E3C4E5 /* AppDelegate.swift in Sources */,
 				5AE95DB2281599C200E3C4E5 /* SceneDelegate.swift in Sources */,
