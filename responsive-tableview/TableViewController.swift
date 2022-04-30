@@ -96,6 +96,7 @@ extension TableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Row \(indexPath.row) tapped!")
     }
+    
 }
 
 // MARK: - UISearchBarDelegate
