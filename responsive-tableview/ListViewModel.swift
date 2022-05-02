@@ -1,5 +1,5 @@
 //
-//  TableViewModel.swift
+//  ListViewModel.swift
 //  responsive-tableview
 //
 //  Created by Connor Przybyla on 4/26/22.
@@ -7,18 +7,17 @@
 
 import Foundation
 
-protocol TableViewModel {
+protocol ViewModel {
     var names: [String] { get set }
     var filteredNames: [String] { get set }
 }
 
-class NamesViewModel: TableViewModel {
-    
+class ListViewModel: ViewModel {
     var names: [String]
     var filteredNames: [String]
     
     init(names: [String]) {
         self.names = names
-        filteredNames = names
+        self.filteredNames = names
     }
 }

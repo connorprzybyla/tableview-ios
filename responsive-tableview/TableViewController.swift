@@ -8,20 +8,30 @@
 import UIKit
 
 class TableViewController: UIViewController {
-        
+    
+    enum Section {
+        case main
+    }
+    
+    private let cellID = "CellID"
+    private let tableView = UITableView()
+    private let searchController = UISearchController()
+    private var viewModel: ViewModel
+    private var datasource: TableDataSource?
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         reloadData()
-        setupSearchBarController()
+        setupSearchController()
         setupAutoLayout()
     }
     
     // MARK: Initializers
     
-    init(viewModel: any TableViewModel) {
+    init(viewModel: any ViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,37 +39,31 @@ class TableViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: Private
-    
-    private let cellID = "CellID"
-    private var viewModel: TableViewModel
-    private let tableView = UITableView()
-    private let searchController = UISearchController()
-    
-    var datasource: TableDataSource?
+}
 
+extension TableViewController {
+    
     private func setupTableView() {
         datasource = TableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, name) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath)
             cell.textLabel?.text = name
-            cell.detailTextLabel?.text = "Cell \(name)"
-            
             return cell
         })
+        
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         view.addSubview(tableView)
     }
+    
     private func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(viewModel.filteredNames, toSection: 0)
-  
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.filteredNames, toSection: .main)
         datasource?.apply(snapshot)
     }
     
-    private func setupSearchBarController() {
+    private func setupSearchController() {
         searchController.searchBar.delegate = self
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
         navigationItem.rightBarButtonItem = addButton
@@ -67,7 +71,7 @@ class TableViewController: UIViewController {
     }
     
     @objc private func addNewPerson() {
-        let alertController = UIAlertController(title: "Add new person", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Add a new name", message: nil, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Submit", style: .default) { [weak self] alert in
             self?.viewModel.filteredNames.append(alertController.textFields![0].text! as String)
             self?.viewModel.names.append(alertController.textFields![0].text! as String)
@@ -94,9 +98,35 @@ class TableViewController: UIViewController {
 extension TableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Row \(indexPath.row) tapped!")
+        print("Row \(indexPath.row) within \(indexPath.section) tapped!")
+        let vc = UIViewController()
+        vc.view.backgroundColor = .systemGray5
+        present(vc, animated: true)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+
+        if position > (tableView.contentSize.height-100 - scrollView.frame.size.height) {
+            // TODO: call view model and get more data if not already fetching
+            print("Get some more data!")
+        }
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension TableViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let indices = indexPaths.map { "\($0.row)" }.joined(separator: ", ")
+        print("Prefetching for rows \(indices)")
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        let indices = indexPaths.map { "\($0.row)" }.joined(separator: ", ")
+        print("Canceling prefetching for rows \(indices)")
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -114,7 +144,7 @@ extension TableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }

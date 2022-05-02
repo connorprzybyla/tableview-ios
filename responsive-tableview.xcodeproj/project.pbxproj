@@ -16,7 +16,7 @@
 		5AE95DC7281599C400E3C4E5 /* responsive_tableviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95DC6281599C400E3C4E5 /* responsive_tableviewTests.swift */; };
 		5AE95DD1281599C400E3C4E5 /* responsive_tableviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95DD0281599C400E3C4E5 /* responsive_tableviewUITests.swift */; };
 		5AE95DD3281599C400E3C4E5 /* responsive_tableviewUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95DD2281599C400E3C4E5 /* responsive_tableviewUITestsLaunchTests.swift */; };
-		5AE95E3C2818DBFD00E3C4E5 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95E3B2818DBFD00E3C4E5 /* TableViewModel.swift */; };
+		5AE95E3C2818DBFD00E3C4E5 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE95E3B2818DBFD00E3C4E5 /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		5AE95DCC281599C400E3C4E5 /* responsive-tableviewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "responsive-tableviewUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE95DD0281599C400E3C4E5 /* responsive_tableviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = responsive_tableviewUITests.swift; sourceTree = "<group>"; };
 		5AE95DD2281599C400E3C4E5 /* responsive_tableviewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = responsive_tableviewUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5AE95E3B2818DBFD00E3C4E5 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
+		5AE95E3B2818DBFD00E3C4E5 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,7 @@
 				5AE95DB8281599C400E3C4E5 /* Assets.xcassets */,
 				5AE95DBA281599C400E3C4E5 /* LaunchScreen.storyboard */,
 				5AE95DBD281599C400E3C4E5 /* Info.plist */,
-				5AE95E3B2818DBFD00E3C4E5 /* TableViewModel.swift */,
+				5AE95E3B2818DBFD00E3C4E5 /* ListViewModel.swift */,
 				5A14BF772819C6100068EB46 /* TableDatasource.swift */,
 			);
 			path = "responsive-tableview";
@@ -264,7 +264,7 @@
 				5AE95DB4281599C200E3C4E5 /* TableViewController.swift in Sources */,
 				5AE95DB0281599C200E3C4E5 /* AppDelegate.swift in Sources */,
 				5AE95DB2281599C200E3C4E5 /* SceneDelegate.swift in Sources */,
-				5AE95E3C2818DBFD00E3C4E5 /* TableViewModel.swift in Sources */,
+				5AE95E3C2818DBFD00E3C4E5 /* ListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

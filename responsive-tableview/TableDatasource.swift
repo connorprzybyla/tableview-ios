@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableDataSource: UITableViewDiffableDataSource<Int, String> {
+class TableDataSource: UITableViewDiffableDataSource<TableViewController.Section, String> {
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
