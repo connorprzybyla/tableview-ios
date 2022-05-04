@@ -1,5 +1,5 @@
 //
-//  TableViewController.swift
+//  HomeVC.swift
 //  responsive-tableview
 //
 //  Created by Connor Przybyla on 4/24/22.
@@ -7,12 +7,13 @@
 
 import UIKit
 
-class TableViewController: UIViewController {
+class HomeVC: UIViewController {
     
     enum Section {
         case main
     }
     
+    var coordinator: Coordinator?
     private let cellID = "CellID"
     private let tableView = UITableView()
     private let searchController = UISearchController()
@@ -41,7 +42,7 @@ class TableViewController: UIViewController {
     }
 }
 
-extension TableViewController {
+extension HomeVC {
     
     private func setupTableView() {
         datasource = TableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, name) -> UITableViewCell? in
@@ -95,7 +96,7 @@ extension TableViewController {
 
 // MARK: - UITableViewDelegate
 
-extension TableViewController: UITableViewDelegate {
+extension HomeVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Row \(indexPath.row) within \(indexPath.section) tapped!")
@@ -116,7 +117,7 @@ extension TableViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSourcePrefetching
 
-extension TableViewController: UITableViewDataSourcePrefetching {
+extension HomeVC: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         let indices = indexPaths.map { "\($0.row)" }.joined(separator: ", ")
@@ -131,7 +132,7 @@ extension TableViewController: UITableViewDataSourcePrefetching {
 
 // MARK: - UISearchBarDelegate
 
-extension TableViewController: UISearchBarDelegate {
+extension HomeVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filteredNames = searchText.isEmpty ? viewModel.names : viewModel.filteredNames.filter({(dataString: String) -> Bool in

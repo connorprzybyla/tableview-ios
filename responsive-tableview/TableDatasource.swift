@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableDataSource: UITableViewDiffableDataSource<TableViewController.Section, String> {
+class TableDataSource: UITableViewDiffableDataSource<HomeVC.Section, String> {
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -21,9 +21,4 @@ class TableDataSource: UITableViewDiffableDataSource<TableViewController.Section
             apply(snapshot, animatingDifferences: true)
         }
     }
-    
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        true
-    }
-    
 }
